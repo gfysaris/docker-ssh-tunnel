@@ -1,8 +1,10 @@
 #!/bin/sh
 
-/usr/sbin/sshd -D
+echo "Starting SSHD (jump server mode)"
+/usr/sbin/sshd -D > /dev/null &
 
 if [ ! -z "$PRIVATE_KEY" ]; then
+  echo "Found private key in environment variables"
   echo $PRIVATE_KEY | base64 -d > /private-ssh-key;
   chmod 400 /private-ssh-key
 fi
@@ -13,6 +15,7 @@ else
 	HOST=$USERNAME@$REMOTE_HOST
 fi
 
+echo "Starting tunnel"
 if [ -f "/private-ssh-key" ]; then
 	ssh -o StrictHostKeyChecking=no \
 	    -o UserKnownHostsFile=/dev/null \
