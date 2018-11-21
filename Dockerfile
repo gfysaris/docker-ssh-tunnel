@@ -1,6 +1,7 @@
-FROM jelmersnoeck/ssh-tunnel
+FROM alpine:3.6
 MAINTAINER Remie Bolte <r.bolte@gmail.com>
 
-RUN if [ ! -z "$PRIVATE_KEY" ]; then\
-	  echo $PRIVATE_KEY | base64 --decode > /private-ssh-key; \
-	fi
+RUN apk add --update openssh-client && rm -rf /var/cache/apk/*
+ADD tunnel.sh /opt/tunnel.sh
+
+CMD /opt/tunnel.sh
