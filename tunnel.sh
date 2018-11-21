@@ -1,6 +1,8 @@
 #!/bin/sh
 
 echo "Starting SSHD (jump server mode)"
+echo "PermitEmptyPasswords = yes" >> /etc/ssh/sshd_config
+echo "PermitRootLogin = yes" >> /etc/ssh/sshd_config
 /usr/sbin/sshd -D > /dev/null &
 
 if [ ! -z "$PRIVATE_KEY" ]; then
