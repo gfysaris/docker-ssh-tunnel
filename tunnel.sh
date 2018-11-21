@@ -5,10 +5,25 @@ if [ ! -z "$PRIVATE_KEY" ]; then
   chmod 400 /private-ssh-key
 fi
 
-ssh -o StrictHostKeyChecking=no \
-    -o UserKnownHostsFile=/dev/null \
-    -o GlobalKnownHostsFile=/dev/null \
-    -o ServerAliveInterval=${KEEP_ALIVE:-180} \
-    -i /private-ssh-key \
-    -L *:$PORT:${BIND_ADDRESS:-127.0.0.1}:$PORT \
-    $USERNAME@$REMOTE_HOST -N
+if [ -z "$USERNAME" ]; then
+	HOST=$REMOTE_HOST
+else
+	HOST=$USERNAME@$REMOTE_HOST
+fi
+
+if [ -f "/private-ssh-key" ]; then
+	ssh -o StrictHostKeyChecking=no \
+	    -o UserKnownHostsFile=/dev/null \
+	    -o GlobalKnownHostsFile=/dev/null \
+	    -o ServerAliveInterval=${KEEP_ALIVE:-180} \
+	    -i /private-ssh-key \
+	    -L *:$PORT:${BIND_ADDRESS:-127.0.0.1}:$PORT \
+	    $HOST -N;
+else
+	ssh -o StrictHostKeyChecking=no \
+	    -o UserKnownHostsFile=/dev/null \
+	    -o GlobalKnownHostsFile=/dev/null \
+	    -o ServerAliveInterval=${KEEP_ALIVE:-180} \
+	    -L *:$PORT:${BIND_ADDRESS:-127.0.0.1}:$PORT \
+	    $HOST -N;
+fi
