@@ -31,7 +31,7 @@ $ docker run --rm -p "9200:9200" \
     -e PORT=9200 \
     -e USERNAME=elasticsearch \
     -e REMOTE_HOST=my-es-host \
-    remie/docker-ssh-tunnel
+    remie/ecs-ssh-tunnel
 ```
 
 with private key provided via environment variables (base64 encoded)
@@ -42,5 +42,5 @@ $ docker run --rm -p "9200:9200" \
     -e PORT=9200 \
     -e USERNAME=elasticsearch \
     -e REMOTE_HOST=my-es-host \
-    remie/docker-ssh-tunnel
+    remie/ecs-ssh-tunnel
 ```
