@@ -17,7 +17,7 @@ else
 	HOST=$USERNAME@$REMOTE_HOST
 fi
 
-echo "Starting tunnel"
+echo "Starting tunnel on ${BIND_ADDRESS:-127.0.0.1}:$PORT to $HOST"
 if [ -f "/private-ssh-key" ]; then
 	ssh -o StrictHostKeyChecking=no \
 	    -o UserKnownHostsFile=/dev/null \
