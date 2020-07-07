@@ -1,7 +1,6 @@
-FROM alpine:3.6
-MAINTAINER Remie Bolte <r.bolte@gmail.com>
+FROM ubuntu:20.4
 
-RUN apk add --update openssh openssh-keygen openssh-client && rm -rf /var/cache/apk/*; \
+RUN apt-get update -y && apt-get install -y openssh-server && \
 	/usr/bin/ssh-keygen -A
 
 ADD tunnel.sh /opt/tunnel.sh
