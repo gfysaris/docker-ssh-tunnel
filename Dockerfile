@@ -1,4 +1,4 @@
-FROM ubuntu:20.4
+FROM ubuntu:20.04
 
 RUN apt-get update -y && apt-get install -y openssh-server && \
 	/usr/bin/ssh-keygen -A
